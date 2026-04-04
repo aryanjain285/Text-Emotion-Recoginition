@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+
+# Virtual environments
+venv/
+env/
+.env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project outputs (generated at runtime)
+checkpoints/
+outputs/
+figures/
+logs/
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter/Colab
+.ipynb_checkpoints/
+*.ipynb
+
+# Model checkpoints (too large for git)
+*.pt
+*.pth
+*.bin
+*.safetensors
+
+# Dataset files
+*.csv
+*.tsv
+*.zip
+*.tar.gz
+glove.*
