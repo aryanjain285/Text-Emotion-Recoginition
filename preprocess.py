@@ -163,77 +163,66 @@ def load_wassa2017(data_dir: str) -> pd.DataFrame:
         logger.info(f"WASSA2017: Loaded from cached combined CSV, {len(df)} samples")
         return df
 
-    # Try to download from the GitHub repository
-    base_url = "https://raw.githubusercontent.com/vinayakumarr/WASSA-2017/master/wassa/"
+    # Scan the wassa2017 directory for emotion-labeled text files.
+    # The WASSA-2017 GitHub repo uses these filename patterns:
+    #   {emotion}-ratings-0to1.train.txt
+    #   {emotion}-ratings-0to1.dev.gold.txt
+    #   {emotion}-ratings-0to1.test.target.txt
+    # Each file is tab-separated: id \t text \t score (intensity 0-1)
+
     emotions = ["anger", "fear", "joy", "sadness"]
-    splits = ["train", "dev", "test"]
-
     all_rows = []
-    downloaded_any = False
 
-    for emotion in emotions:
-        for split in splits:
-            # Try multiple filename patterns used in the repo
-            patterns = [
-                f"{emotion}-ratings-0to1.{split}.txt",
-                f"{emotion}/{split}.txt",
-                f"{split}/{emotion}.txt",
-                f"{emotion}-{split}.txt",
-            ]
-
-            for pattern in patterns:
-                url = base_url + pattern
-                local_path = os.path.join(wassa_dir, f"{emotion}_{split}.txt")
-
-                if os.path.exists(local_path):
-                    # Already downloaded
-                    try:
-                        with open(local_path, "r", encoding="utf-8") as f:
-                            for line in f:
-                                parts = line.strip().split("\t")
-                                if len(parts) >= 2:
-                                    text = parts[1] if len(parts) == 3 else parts[0]
-                                    all_rows.append({"text": text, "emotion": emotion})
-                                    downloaded_any = True
-                    except Exception:
-                        pass
+    # Strategy: scan every .txt file in the directory. If its name starts
+    # with one of the four emotion keywords, parse it and tag rows with
+    # that emotion. This handles any filename variant from the repo.
+    if os.path.isdir(wassa_dir):
+        for fname in sorted(os.listdir(wassa_dir)):
+            if not fname.endswith(".txt"):
+                continue
+            fname_lower = fname.lower()
+            matched_emotion = None
+            for emo in emotions:
+                if fname_lower.startswith(emo):
+                    matched_emotion = emo
                     break
+            if matched_emotion is None:
+                continue
 
+            fpath = os.path.join(wassa_dir, fname)
+            try:
+                with open(fpath, "r", encoding="utf-8") as f:
+                    for line in f:
+                        parts = line.strip().split("\t")
+                        if len(parts) >= 2:
+                            # Format: id \t text \t score  (3 cols)
+                            # or:     text \t score        (2 cols)
+                            text = parts[1] if len(parts) >= 3 else parts[0]
+                            if len(text) > 3:  # Skip empty / header rows
+                                all_rows.append({"text": text, "emotion": matched_emotion})
+            except Exception as e:
+                logger.warning(f"  Could not read {fname}: {e}")
+
+    # Fallback: try to download from GitHub if nothing was found locally
+    if not all_rows:
+        base_url = "https://raw.githubusercontent.com/vinayakumarr/WASSA-2017/master/wassa/data/"
+        file_patterns = [
+            ("training", "{emo}-ratings-0to1.train.txt"),
+            ("testing", "{emo}-ratings-0to1.test.target.txt"),
+            ("validation", "{emo}-ratings-0to1.dev.gold.txt"),
+        ]
+        for emo in emotions:
+            for subdir, pattern in file_patterns:
+                url = base_url + subdir + "/" + pattern.format(emo=emo)
                 try:
                     resp = requests.get(url, timeout=30)
                     if resp.status_code == 200 and len(resp.text) > 50:
-                        with open(local_path, "w", encoding="utf-8") as f:
-                            f.write(resp.text)
-
                         for line in resp.text.strip().split("\n"):
                             parts = line.strip().split("\t")
                             if len(parts) >= 2:
-                                # Format: id \t text \t score  OR  text \t score
                                 text = parts[1] if len(parts) >= 3 else parts[0]
-                                all_rows.append({"text": text, "emotion": emotion})
-                                downloaded_any = True
-                        break
-                except Exception:
-                    continue
-
-    if not downloaded_any:
-        # Provide clear fallback instructions
-        # Also try to find any CSV/TSV files the user may have placed
-        for fname in os.listdir(wassa_dir):
-            fpath = os.path.join(wassa_dir, fname)
-            if fname.endswith((".csv", ".tsv", ".txt")):
-                try:
-                    sep = "\t" if fname.endswith(".tsv") or fname.endswith(".txt") else ","
-                    tmp = pd.read_csv(fpath, sep=sep, header=None, on_bad_lines="skip")
-                    if len(tmp.columns) >= 2:
-                        for _, row in tmp.iterrows():
-                            vals = [str(v).strip() for v in row if pd.notna(v)]
-                            # Heuristic: longest field is text, short one is emotion
-                            if len(vals) >= 2:
-                                text = max(vals, key=len)
-                                label = min(vals, key=len)
-                                if label.lower() in emotions:
-                                    all_rows.append({"text": text, "emotion": label.lower()})
+                                if len(text) > 3:
+                                    all_rows.append({"text": text, "emotion": emo})
                 except Exception:
                     continue
 
