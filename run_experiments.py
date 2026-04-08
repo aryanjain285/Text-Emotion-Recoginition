@@ -485,7 +485,7 @@ def main():
 
 def _generate_attention_examples(ds_data, cfg, device, ds_name):
     """Generate attention heatmaps for a few example sentences."""
-    from transformers import AutoTokenizer
+    from transformers import AutoTokenizer, AutoModel
 
     logger = logging.getLogger("project")
     tokenizer = AutoTokenizer.from_pretrained(cfg.data.tokenizer_name)
@@ -494,6 +494,14 @@ def _generate_attention_examples(ds_data, cfg, device, ds_name):
     model = build_model(
         "dual_branch", ds_data["num_classes"], cfg
     )
+
+    # SDPA attention (default in newer transformers) does not support
+    # output_attentions=True. Replace the encoder with one using eager attention.
+    eager_encoder = AutoModel.from_pretrained(
+        cfg.model.encoder_name, attn_implementation="eager"
+    )
+    model.encoder = eager_encoder
+    model._freeze_layers(cfg.model.freeze_embeddings, cfg.model.freeze_n_layers)
 
     checkpoint_path = os.path.join(
         cfg.paths.checkpoint_dir,
