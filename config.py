@@ -59,7 +59,7 @@ class ModelConfig:
     encoder_name: str = "bert-base-uncased"  # or "roberta-base", "distilbert-base-uncased"
     hidden_size: int = 768       # BERT hidden dimension
     freeze_embeddings: bool = True
-    freeze_n_layers: int = 8     # Freeze first N transformer layers (of 12)
+    freeze_n_layers: int = 6     # Freeze first N transformer layers (of 12)
 
     # --- Local branch (CNN) ---
     cnn_kernel_sizes: Tuple[int, ...] = (2, 3, 4)
@@ -76,7 +76,7 @@ class ModelConfig:
     fused_dim: int = 384
 
     # --- Classifier ---
-    dropout: float = 0.3
+    dropout: float = 0.4
 
     # --- TextCNN baseline (non-BERT) ---
     vocab_size: int = 30522  # Will be set dynamically
@@ -96,7 +96,7 @@ class TrainConfig:
     # Optimizer
     optimizer: str = "adamw"
     encoder_lr: float = 2e-5     # Learning rate for BERT parameters
-    head_lr: float = 1e-3        # Learning rate for classification heads
+    head_lr: float = 5e-4        # Learning rate for classification heads
     weight_decay: float = 0.01
 
     # Scheduler
@@ -104,13 +104,13 @@ class TrainConfig:
     scheduler: str = "linear_warmup_decay"
 
     # Training loop
-    epochs: int = 12
+    epochs: int = 15
     batch_size: int = 32
     gradient_accumulation_steps: int = 1  # Increase if OOM
     max_grad_norm: float = 1.0
 
     # Early stopping
-    patience: int = 3            # Stop after N epochs without val improvement
+    patience: int = 5            # Stop after N epochs without val improvement
     metric_for_best: str = "macro_f1"  # Metric to monitor
 
     # Loss
