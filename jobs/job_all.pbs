@@ -18,7 +18,7 @@
 # ==============================================================
 
 cd $PBS_O_WORKDIR
-module load python/3.10
+module load python/3.10.9
 source ~/ter_env/bin/activate
 
 echo "============================================"

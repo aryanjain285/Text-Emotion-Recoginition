@@ -31,7 +31,7 @@ echo "  Working directory: $(pwd)"
 
 # --- 2. Create virtual environment ---
 echo "[2/5] Setting up Python environment..."
-module load python/3.10
+module load python/3.10.9
 if [ ! -d "$HOME/ter_env" ]; then
     python -m venv $HOME/ter_env
 fi
