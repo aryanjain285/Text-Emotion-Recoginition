@@ -31,7 +31,7 @@ logger_obj = None
 def load_step_results(output_dir, dataset):
     """Load all step results for a dataset."""
     results = {}
-    for step_file in ["step1_baselines", "step2_bert", "step3_ablation"]:
+    for step_file in ["step1_baselines", "step2_bert", "step3_ablation", "step3b_kernels"]:
         path = os.path.join(output_dir, f"{step_file}_{dataset}.json")
         if os.path.exists(path):
             with open(path) as f:
@@ -123,6 +123,18 @@ def generate_figures(results, dataset, label_names, figures_dir):
             ablation_results,
             title=f"Ablation Study — {dataset}",
             save_path=os.path.join(figures_dir, f"results_table_ablation_{dataset}.png"),
+        )
+
+    # ---- 6. Kernel analysis table ----
+    kernel_models = {k: v for k, v in results.items() if k.startswith("kernels_")}
+    # Add default (2,3,4) from dual_branch
+    if "dual_branch" in results:
+        kernel_models["kernels_(2,3,4) [default]"] = results["dual_branch"]
+    if len(kernel_models) > 1:
+        plot_results_table(
+            kernel_models,
+            title=f"Kernel Size Analysis — {dataset}",
+            save_path=os.path.join(figures_dir, f"results_table_kernels_{dataset}.png"),
         )
 
 
@@ -260,6 +272,18 @@ def print_report_tables(all_results):
                 f1 = f"{r['macro_f1']:.4f}±{r.get('macro_f1_std',0):.4f}"
                 acc = f"{r['accuracy']:.4f}"
                 print(f"{name:<25} {f1:>12} {acc:>12}")
+
+        # Kernel analysis table
+        kernel_models = {k: v for k, v in results.items() if k.startswith("kernels_")}
+        if "dual_branch" in results:
+            kernel_models["(2,3,4) [default]"] = results["dual_branch"]
+        if len(kernel_models) > 1:
+            print(f"\nKernel Size Analysis:")
+            print(f"{'Config':<25} {'Macro-F1':>12}")
+            print("-" * 40)
+            for name, r in sorted(kernel_models.items()):
+                f1 = f"{r['macro_f1']:.4f}±{r.get('macro_f1_std',0):.4f}"
+                print(f"{name:<25} {f1:>12}")
 
 
 def main():
