@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N ter_step1_baselines
+#PBS -l select=1:ncpus=4:mem=16gb:ngpus=1
+#PBS -l walltime=00:30:00
+#PBS -q gpu
+#PBS -P Personal
+#PBS -j oe
+#PBS -o logs/step1_baselines.out
+
+# ==============================================================
+# Step 1: Non-BERT Baselines (TextCNN + BiLSTM)
+# Time: ~5-10 min
+# ==============================================================
+
+cd $PBS_O_WORKDIR
+module load python/3.10
+source ~/ter_env/bin/activate
+
+echo "Job started: $(date)"
+echo "Node: $(hostname)"
+nvidia-smi
+
+python step1_baselines.py 2>&1 | tee logs/step1_console.log
+
+echo "Job finished: $(date)"

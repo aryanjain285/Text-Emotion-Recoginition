@@ -1,0 +1,71 @@
+#!/bin/bash
+#PBS -N ter_all_experiments
+#PBS -l select=1:ncpus=4:mem=32gb:ngpus=1
+#PBS -l walltime=06:00:00
+#PBS -q gpu
+#PBS -P Personal
+#PBS -j oe
+#PBS -o logs/all_experiments.out
+
+# ==============================================================
+# ALL EXPERIMENTS IN ONE JOB (6 hour walltime)
+#
+# Runs all steps sequentially. Use this if you want a single
+# job that produces everything. Each step saves its own JSON,
+# so if the job times out, completed steps are not lost.
+#
+# Estimated time on A100: ~3-4 hrs total
+# ==============================================================
+
+cd $PBS_O_WORKDIR
+module load python/3.10
+source ~/ter_env/bin/activate
+
+echo "============================================"
+echo "ALL EXPERIMENTS — Started: $(date)"
+echo "Node: $(hostname)"
+echo "============================================"
+nvidia-smi
+echo ""
+
+# --- Step 1: Non-BERT baselines (~5 min) ---
+echo "[$(date +%H:%M)] STEP 1: Non-BERT baselines..."
+python step1_baselines.py 2>&1 | tee logs/step1_console.log
+echo "[$(date +%H:%M)] Step 1 done."
+echo ""
+
+# --- Step 2: BERT models (~1.5-2 hrs) ---
+echo "[$(date +%H:%M)] STEP 2: BERT models..."
+python step2_bert_models.py 2>&1 | tee logs/step2_console.log
+echo "[$(date +%H:%M)] Step 2 done."
+echo ""
+
+# --- Step 3: Ablation (~30-40 min) ---
+echo "[$(date +%H:%M)] STEP 3: Ablation study..."
+python step3_ablation.py 2>&1 | tee logs/step3_console.log
+echo "[$(date +%H:%M)] Step 3 done."
+echo ""
+
+# --- Step 3b: Kernel analysis (~45-60 min) ---
+echo "[$(date +%H:%M)] STEP 3b: Kernel analysis..."
+python step3b_kernel_analysis.py 2>&1 | tee logs/step3b_console.log
+echo "[$(date +%H:%M)] Step 3b done."
+echo ""
+
+# --- Step 4: Visualizations (~2 min) ---
+echo "[$(date +%H:%M)] STEP 4: Generating figures..."
+python step4_visualize.py 2>&1 | tee logs/step4_console.log
+echo "[$(date +%H:%M)] Step 4 done."
+echo ""
+
+# --- Summary ---
+echo "============================================"
+echo "ALL EXPERIMENTS COMPLETE — $(date)"
+echo "============================================"
+echo ""
+echo "Output files:"
+ls -la outputs/*.json 2>/dev/null
+echo ""
+echo "Figures:"
+ls -la figures/*.png 2>/dev/null | wc -l
+echo "PNG files generated in figures/"
