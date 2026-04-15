@@ -1,11 +1,11 @@
 #!/bin/bash
 #PBS -N ter_all_experiments
-#PBS -l select=1:ncpus=4:mem=32gb:ngpus=1
+#PBS -q normal
+#PBS -l select=1:ncpus=8:ngpus=2:mem=32gb
 #PBS -l walltime=06:00:00
-#PBS -q gpu
-#PBS -P Personal
+#PBS -P 52001004
 #PBS -j oe
-#PBS -o logs/all_experiments.out
+#PBS -o logs/all_experiments.log
 
 # ==============================================================
 # ALL EXPERIMENTS IN ONE JOB (6 hour walltime)

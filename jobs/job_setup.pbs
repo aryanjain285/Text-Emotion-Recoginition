@@ -1,0 +1,113 @@
+#!/bin/bash
+#PBS -N ter_setup
+#PBS -q normal
+#PBS -l select=1:ncpus=8:ngpus=1:mem=32gb
+#PBS -l walltime=00:30:00
+#PBS -P 52001004
+#PBS -j oe
+#PBS -o setup_job.log
+
+# ==============================================================
+# Setup Job: Clone repo, install deps, download data + models
+# Run this ONCE before submitting the main experiment job.
+# ==============================================================
+
+cd $HOME
+echo "Setup started: $(date)"
+echo "Node: $(hostname)"
+
+# --- 1. Clone the repository ---
+echo "[1/5] Cloning repository..."
+if [ -d "Text-Emotion-Recoginition" ]; then
+    echo "  Repo already exists, pulling latest..."
+    cd Text-Emotion-Recoginition
+    git pull
+else
+    git clone https://github.com/aryanjain285/Text-Emotion-Recoginition.git
+    cd Text-Emotion-Recoginition
+fi
+
+echo "  Working directory: $(pwd)"
+
+# --- 2. Create virtual environment ---
+echo "[2/5] Setting up Python environment..."
+module load python/3.10
+if [ ! -d "$HOME/ter_env" ]; then
+    python -m venv $HOME/ter_env
+fi
+source $HOME/ter_env/bin/activate
+
+# --- 3. Install dependencies ---
+echo "[3/5] Installing packages..."
+pip install --upgrade pip -q
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118 -q
+pip install transformers pandas scikit-learn matplotlib seaborn tqdm requests -q
+echo "  Packages installed."
+
+# --- 4. Pre-download BERT model ---
+echo "[4/5] Pre-downloading BERT model (so experiment job doesn't waste GPU time)..."
+python -c "
+from transformers import AutoModel, AutoTokenizer
+for m in ['bert-base-uncased']:
+    print(f'  Downloading {m}...')
+    AutoModel.from_pretrained(m)
+    AutoTokenizer.from_pretrained(m)
+print('  Done.')
+"
+
+# --- 5. Download datasets ---
+echo "[5/5] Downloading datasets..."
+mkdir -p data/wassa2017 outputs figures checkpoints logs
+
+# WASSA2017
+WASSA_COUNT=$(ls data/wassa2017/*.txt 2>/dev/null | wc -l)
+if [ "$WASSA_COUNT" -lt 4 ]; then
+    echo "  Downloading WASSA2017..."
+    git clone --depth 1 https://github.com/vinayakumarr/WASSA-2017.git /tmp/wassa_repo 2>/dev/null || true
+    cp /tmp/wassa_repo/wassa/data/training/* data/wassa2017/ 2>/dev/null || true
+    cp /tmp/wassa_repo/wassa/data/testing/* data/wassa2017/ 2>/dev/null || true
+    cp /tmp/wassa_repo/wassa/data/validation/* data/wassa2017/ 2>/dev/null || true
+    rm -rf /tmp/wassa_repo
+    echo "  WASSA2017: $(ls data/wassa2017/*.txt | wc -l) files downloaded."
+else
+    echo "  WASSA2017 already present."
+fi
+
+# GloVe
+if [ ! -f data/glove.6B.300d.txt ]; then
+    echo "  Downloading GloVe (822MB)..."
+    wget -q https://nlp.stanford.edu/data/glove.6B.zip -O /tmp/glove.6B.zip
+    unzip -q -o /tmp/glove.6B.zip glove.6B.300d.txt -d data/
+    rm /tmp/glove.6B.zip
+    echo "  GloVe downloaded."
+else
+    echo "  GloVe already present."
+fi
+
+# CROWDFLOWER — check if exists
+if [ -f data/crowdflower.csv ]; then
+    echo "  CROWDFLOWER: present."
+else
+    echo ""
+    echo "  ⚠⚠⚠ CROWDFLOWER DATASET MISSING ⚠⚠⚠"
+    echo "  Download from: https://www.kaggle.com/datasets/pashupatigupta/emotion-detection-from-text"
+    echo "  Then copy to: $(pwd)/data/crowdflower.csv"
+    echo ""
+    echo "  Quick command after downloading to your local machine:"
+    echo "    scp tweet_emotions.csv <username>@aspire2a.nscc.sg:~/Text-Emotion-Recoginition/data/crowdflower.csv"
+fi
+
+# --- Summary ---
+echo ""
+echo "=========================================="
+echo "✅ Setup complete: $(date)"
+echo ""
+echo "Files:"
+ls -lh data/crowdflower.csv 2>/dev/null || echo "  ✗ data/crowdflower.csv MISSING"
+echo "  WASSA2017: $(ls data/wassa2017/*.txt 2>/dev/null | wc -l) files"
+ls -lh data/glove.6B.300d.txt 2>/dev/null || echo "  ✗ data/glove.6B.300d.txt MISSING"
+echo ""
+echo "Next step:"
+echo "  1. Upload crowdflower.csv if missing (see above)"
+echo "  2. qsub jobs/job_all.pbs"
+echo "=========================================="
