@@ -104,7 +104,7 @@ class TrainConfig:
     scheduler: str = "linear_warmup_decay"
 
     # Training loop
-    epochs: int = 12
+    epochs: int = 15
     batch_size: int = 32
     gradient_accumulation_steps: int = 1  # Increase if OOM
     max_grad_norm: float = 1.0
