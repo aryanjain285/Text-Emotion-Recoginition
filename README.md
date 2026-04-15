@@ -75,22 +75,35 @@ This project proposes a **Dual-Branch Local–Global Fusion** architecture for t
 
 ### 3. Run Experiments
 
+**Option A: Step-by-step (recommended — can split across teammates)**
+
 ```bash
-# Full run (all experiments, 3 seeds per model)
-python run_experiments.py
+# Step 1: Non-BERT baselines (~5 min)
+python step1_baselines.py
 
-# Quick test (2 epochs, 1 seed — verify everything works)
-python run_experiments.py --quick
+# Step 2: BERT models — main experiment (~1.5 hrs)
+python step2_bert_models.py
 
-# Single dataset
-python run_experiments.py --dataset wassa2017
+# Step 3: Ablation study (~40 min)
+python step3_ablation.py
 
-# Skip slow non-BERT baselines
-python run_experiments.py --skip-baselines
-
-# Custom configuration
-python run_experiments.py --epochs 8 --seeds 42 123 --batch-size 16
+# Step 4: Generate all figures and tables (~1 min)
+python step4_visualize.py
 ```
+
+Each step saves results to `outputs/` as JSON. Steps 1-3 are independent — different teammates can run them in parallel on separate Colab sessions.
+
+**Option B: All at once**
+
+```bash
+python run_experiments.py              # Full run
+python run_experiments.py --quick      # Quick test (2 epochs, 1 seed)
+```
+
+**Splitting across teammates:**
+- Teammate A: `python step1_baselines.py && python step3_ablation.py`
+- Teammate B: `python step2_bert_models.py`
+- After both finish, anyone runs: `python step4_visualize.py`
 
 ### 4. Expected Outputs
 
