@@ -500,8 +500,9 @@ def plot_results_table(
     best_vals = {m: -1 for m in metrics}
     for name, res in results_dict.items():
         for m in metrics:
-            if res.get(m, 0) > best_vals[m]:
-                best_vals[m] = res[m]
+            val = res.get(m, 0)
+            if val > best_vals[m]:
+                best_vals[m] = val
 
     for name, res in results_dict.items():
         row_labels.append(name)
