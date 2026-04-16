@@ -1,0 +1,207 @@
+{
+  "total_errors": 85,
+  "total_samples": 691,
+  "error_rate": 0.12301013024602026,
+  "confusion_pairs": {
+    "sadness \u2192 fear": 18,
+    "anger \u2192 fear": 15,
+    "fear \u2192 joy": 6,
+    "anger \u2192 sadness": 4,
+    "fear \u2192 sadness": 7,
+    "joy \u2192 sadness": 2,
+    "sadness \u2192 anger": 7,
+    "fear \u2192 anger": 8,
+    "joy \u2192 anger": 2,
+    "joy \u2192 fear": 9,
+    "anger \u2192 joy": 2,
+    "sadness \u2192 joy": 5
+  },
+  "category_counts": {
+    "ambiguous": 6,
+    "other": 21,
+    "negation": 2,
+    "short_text": 1
+  },
+  "error_examples": [
+    {
+      "text": "but what will complaining, pessimism, regret, and anger get you?",
+      "true_label": "sadness",
+      "predicted_label": "anger",
+      "category": "ambiguous"
+    },
+    {
+      "text": "my two older boys were elated, my toddler was terrified. i have pics of his poor little face peeping through the hole in the basket.",
+      "true_label": "joy",
+      "predicted_label": "fear",
+      "category": "other"
+    },
+    {
+      "text": "beats is accurately all-powerful with respect to high-quality high-frequency speaker in re the extra desolate relating to fire-ea",
+      "true_label": "sadness",
+      "predicted_label": "anger",
+      "category": "other"
+    },
+    {
+      "text": "ok this movie was good in it's time, and whilst we were young. still enjoy a shy ethan hawk beforesunrise",
+      "true_label": "fear",
+      "predicted_label": "joy",
+      "category": "other"
+    },
+    {
+      "text": "it's hard for most folks to realize how deep the hatred is until you dive into the murky end of the pool. this guy is nuts.",
+      "true_label": "sadness",
+      "predicted_label": "anger",
+      "category": "other"
+    },
+    {
+      "text": "i envy ice, at least if you give it warmth it melts taylorlautner twilight quote",
+      "true_label": "joy",
+      "predicted_label": "sadness",
+      "category": "other"
+    },
+    {
+      "text": "how a dad would feel knowing his daughter is getting dashed around for whines in the rave",
+      "true_label": "sadness",
+      "predicted_label": "anger",
+      "category": "other"
+    },
+    {
+      "text": "laughs louder this time, shaking my head that was really cheesy, wasn't it?",
+      "true_label": "fear",
+      "predicted_label": "joy",
+      "category": "other"
+    },
+    {
+      "text": "don't ever compare those scrubs to ben.he'll shake off your whole dl and throw a td 7",
+      "true_label": "fear",
+      "predicted_label": "anger",
+      "category": "other"
+    },
+    {
+      "text": "my first time in slough so checked out the new station floor lifeontheroad",
+      "true_label": "sadness",
+      "predicted_label": "fear",
+      "category": "other"
+    },
+    {
+      "text": "is that really all you can offer for those who sacrifice daily to keep you safe.?",
+      "true_label": "sadness",
+      "predicted_label": "joy",
+      "category": "other"
+    },
+    {
+      "text": "maybe don't provoke him in the future if you do not want to run the risk of him punching your board.",
+      "true_label": "anger",
+      "predicted_label": "fear",
+      "category": "negation"
+    },
+    {
+      "text": "it is too fucking bright amp too fucking hot outside",
+      "true_label": "joy",
+      "predicted_label": "anger",
+      "category": "ambiguous"
+    },
+    {
+      "text": "some people already talks about halloween nyou'll get some dark music to go with it ngothic bloody halloweenhorrornights",
+      "true_label": "sadness",
+      "predicted_label": "fear",
+      "category": "other"
+    },
+    {
+      "text": "sparkles, proud little huff. still posing mind you.",
+      "true_label": "anger",
+      "predicted_label": "joy",
+      "category": "ambiguous"
+    },
+    {
+      "text": "goksfillyourhouseforfree should be retitled fill your house with old trash repainted . junk trash",
+      "true_label": "fear",
+      "predicted_label": "sadness",
+      "category": "other"
+    },
+    {
+      "text": "she would frown a bit, folding her arms 'why is it that every time i'm in need of assistance someone expects a lil",
+      "true_label": "anger",
+      "predicted_label": "sadness",
+      "category": "other"
+    },
+    {
+      "text": "msm stoking fear. please remember the beautiful prayerful protests in dallas and atlanta. smile at a stranger. we make each other strong.",
+      "true_label": "fear",
+      "predicted_label": "joy",
+      "category": "other"
+    },
+    {
+      "text": "you are on an endless journey of figuring yourself out don't be discouraged when you don't know who you are yet.",
+      "true_label": "sadness",
+      "predicted_label": "fear",
+      "category": "other"
+    },
+    {
+      "text": "porkistan lost terribly in 65 because of american intervation to talk we stopped",
+      "true_label": "sadness",
+      "predicted_label": "fear",
+      "category": "other"
+    },
+    {
+      "text": "if your depressed and somebody calls you long faced will you still automatically take umbrage?",
+      "true_label": "anger",
+      "predicted_label": "sadness",
+      "category": "other"
+    },
+    {
+      "text": "impractical jokers.practically genius! good4thesoul impracticaljokers bingewatching",
+      "true_label": "joy",
+      "predicted_label": "fear",
+      "category": "ambiguous"
+    },
+    {
+      "text": "i'm so bored and fat and full and ridiculously overweight and rolls galore",
+      "true_label": "fear",
+      "predicted_label": "sadness",
+      "category": "other"
+    },
+    {
+      "text": "ah, the grand old paradox that is fearing the encroachment of the state but loving unconditionally its paid enforcers",
+      "true_label": "fear",
+      "predicted_label": "joy",
+      "category": "other"
+    },
+    {
+      "text": "it s possible changing meds is best not done while under stress. difficult to tell what part of despair is circumstantial, what is drugs.",
+      "true_label": "sadness",
+      "predicted_label": "fear",
+      "category": "negation"
+    },
+    {
+      "text": "the rappers who stayed true to the game is rich.",
+      "true_label": "sadness",
+      "predicted_label": "joy",
+      "category": "ambiguous"
+    },
+    {
+      "text": "jeezus god",
+      "true_label": "sadness",
+      "predicted_label": "fear",
+      "category": "short_text"
+    },
+    {
+      "text": "the most important thing to bestrong is to hold your thoughts",
+      "true_label": "anger",
+      "predicted_label": "fear",
+      "category": "other"
+    },
+    {
+      "text": "projection is perception. see it in someone else? you also at some level have that within you. anger",
+      "true_label": "fear",
+      "predicted_label": "anger",
+      "category": "other"
+    },
+    {
+      "text": "bout ta get my on up in here! icantholdmybreaththatlong",
+      "true_label": "fear",
+      "predicted_label": "anger",
+      "category": "ambiguous"
+    }
+  ]
+}

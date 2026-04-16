@@ -1,0 +1,132 @@
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Using GPU: NVIDIA A100-SXM4-40GB
+GPU Memory: 42.5 GB
+============================================================
+STEP 4: GENERATING ALL VISUALIZATIONS
+============================================================
+
+--- CROWDFLOWER ---
+  Loaded: ./outputs/step1_baselines_crowdflower.json (2 models)
+  Loaded: ./outputs/step2_bert_crowdflower.json (4 models)
+  Loaded: ./outputs/step3_ablation_crowdflower.json (2 models)
+  Loaded: ./outputs/step3b_kernels_crowdflower.json (3 models)
+  Saved: ./figures/cm_vanilla_bert_crowdflower.png
+  Saved: ./figures/cm_dual_branch_crowdflower.png
+  Saved: ./figures/training_curves_bert_crowdflower.png
+  Saved: ./figures/training_curves_baselines_crowdflower.png
+  Saved: ./figures/per_class_f1_crowdflower.png
+  Saved: ./figures/results_table_main_crowdflower.png
+  Saved: ./figures/results_table_ablation_crowdflower.png
+  Saved: ./figures/results_table_kernels_crowdflower.png
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights:   9%|▉         | 18/199 [00:00<00:01, 161.68it/s]Loading weights:  18%|█▊        | 35/199 [00:00<00:01, 121.23it/s]Loading weights:  24%|██▍       | 48/199 [00:00<00:01, 106.86it/s]Loading weights:  33%|███▎      | 65/199 [00:00<00:01, 86.25it/s] Loading weights:  38%|███▊      | 75/199 [00:00<00:01, 84.93it/s]Loading weights:  51%|█████     | 101/199 [00:00<00:00, 117.16it/s]Loading weights:  57%|█████▋    | 114/199 [00:01<00:00, 100.79it/s]Loading weights:  63%|██████▎   | 125/199 [00:01<00:00, 89.83it/s] Loading weights:  74%|███████▍  | 147/199 [00:01<00:00, 108.10it/s]Loading weights:  83%|████████▎ | 165/199 [00:01<00:00, 106.82it/s]Loading weights:  89%|████████▉ | 177/199 [00:01<00:00, 97.22it/s] Loading weights: 100%|██████████| 199/199 [00:01<00:00, 113.61it/s]
+[1mBertModel LOAD REPORT[0m from: bert-base-uncased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  Evaluating:   0%|          | 0/105 [00:00<?, ?it/s]  Evaluating:   1%|          | 1/105 [00:01<02:23,  1.38s/it]  Evaluating:   9%|▊         | 9/105 [00:01<00:11,  8.14it/s]  Evaluating:  16%|█▌        | 17/105 [00:01<00:05, 16.48it/s]  Evaluating:  24%|██▍       | 25/105 [00:01<00:03, 25.35it/s]  Evaluating:  31%|███▏      | 33/105 [00:01<00:02, 34.23it/s]  Evaluating:  39%|███▉      | 41/105 [00:01<00:01, 42.56it/s]  Evaluating:  47%|████▋     | 49/105 [00:02<00:01, 49.98it/s]  Evaluating:  54%|█████▍    | 57/105 [00:02<00:00, 56.31it/s]  Evaluating:  62%|██████▏   | 65/105 [00:02<00:00, 61.36it/s]  Evaluating:  70%|██████▉   | 73/105 [00:02<00:00, 65.30it/s]  Evaluating:  77%|███████▋  | 81/105 [00:02<00:00, 68.28it/s]  Evaluating:  85%|████████▍ | 89/105 [00:02<00:00, 70.49it/s]  Evaluating:  92%|█████████▏| 97/105 [00:02<00:00, 72.04it/s]  Evaluating: 100%|██████████| 105/105 [00:02<00:00, 68.27it/s]                                                                 Running t-SNE on 2000 samples...
+  t-SNE/gate/attention generation failed: TSNE.__init__() got an unexpected keyword argument 'n_iter'
+  (This is OK — figures from JSONs are already saved)
+
+--- WASSA2017 ---
+  Loaded: ./outputs/step1_baselines_wassa2017.json (2 models)
+  Loaded: ./outputs/step2_bert_wassa2017.json (4 models)
+  Loaded: ./outputs/step3_ablation_wassa2017.json (2 models)
+  Loaded: ./outputs/step3b_kernels_wassa2017.json (3 models)
+  Saved: ./figures/cm_vanilla_bert_wassa2017.png
+  Saved: ./figures/cm_dual_branch_wassa2017.png
+  Saved: ./figures/training_curves_bert_wassa2017.png
+  Saved: ./figures/training_curves_baselines_wassa2017.png
+  Saved: ./figures/per_class_f1_wassa2017.png
+  Saved: ./figures/results_table_main_wassa2017.png
+  Saved: ./figures/results_table_ablation_wassa2017.png
+  Saved: ./figures/results_table_kernels_wassa2017.png
+Loading weights:   0%|          | 0/199 [00:00<?, ?it/s]Loading weights: 100%|██████████| 199/199 [00:00<00:00, 8276.07it/s]
+[1mBertModel LOAD REPORT[0m from: bert-base-uncased
+Key                                        | Status     |  | 
+-------------------------------------------+------------+--+-
+cls.predictions.transform.dense.bias       | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.weight | UNEXPECTED |  | 
+cls.predictions.transform.dense.weight     | UNEXPECTED |  | 
+cls.predictions.transform.LayerNorm.bias   | UNEXPECTED |  | 
+cls.seq_relationship.weight                | UNEXPECTED |  | 
+cls.seq_relationship.bias                  | UNEXPECTED |  | 
+cls.predictions.bias                       | UNEXPECTED |  | 
+
+Notes:
+- UNEXPECTED:	can be ignored when loading from different task/architecture; not ok if you expect identical arch.
+  Evaluating:   0%|          | 0/22 [00:00<?, ?it/s]  Evaluating:   9%|▉         | 2/22 [00:00<00:01, 19.33it/s]  Evaluating:  45%|████▌     | 10/22 [00:00<00:00, 50.49it/s]  Evaluating:  82%|████████▏ | 18/22 [00:00<00:00, 61.02it/s]                                                               Running t-SNE on 691 samples...
+  t-SNE/gate/attention generation failed: TSNE.__init__() got an unexpected keyword argument 'n_iter'
+  (This is OK — figures from JSONs are already saved)
+
+======================================================================
+TABLES FOR REPORT (copy-paste ready)
+======================================================================
+
+--- CROWDFLOWER ---
+
+Model                         Macro-F1  Weighted-F1     Accuracy
+-----------------------------------------------------------------
+textcnn                   0.3579±0.0012       0.3579 0.3838±0.0036
+bilstm_attention          0.3637±0.0066       0.3637 0.3819±0.0068
+vanilla_bert              0.4067±0.0078       0.4067 0.4236±0.0063
+bert_cnn_local            0.3952±0.0053       0.3952 0.4140±0.0098
+bert_cls_global           0.4042±0.0070       0.4042 0.4231±0.0128
+dual_branch               0.4059±0.0047       0.4059 0.4277±0.0114
+
+Ablation Study:
+Config                        Macro-F1     Accuracy
+--------------------------------------------------
+gated (ours)              0.4059±0.0047       0.4277
+local only                0.3952±0.0053       0.4140
+global only               0.4042±0.0070       0.4231
+concat                    0.4067±0.0022       0.4337
+average                   0.3970±0.0117       0.4132
+
+Kernel Size Analysis:
+Config                        Macro-F1
+----------------------------------------
+(2,3,4) [default]         0.4059±0.0047
+kernels_(2,3)             0.3991±0.0040
+kernels_(2,3,4,5)         0.4010±0.0093
+kernels_(3,4,5)           0.4059±0.0073
+
+--- WASSA2017 ---
+
+Model                         Macro-F1  Weighted-F1     Accuracy
+-----------------------------------------------------------------
+textcnn                   0.8767±0.0028       0.8767 0.8765±0.0027
+bilstm_attention          0.8505±0.0031       0.8505 0.8509±0.0035
+vanilla_bert              0.8507±0.0034       0.8507 0.8514±0.0038
+bert_cnn_local            0.8709±0.0065       0.8709 0.8717±0.0061
+bert_cls_global           0.8349±0.0122       0.8349 0.8374±0.0115
+dual_branch               0.8746±0.0021       0.8746 0.8760±0.0025
+
+Ablation Study:
+Config                        Macro-F1     Accuracy
+--------------------------------------------------
+gated (ours)              0.8746±0.0021       0.8760
+local only                0.8709±0.0065       0.8717
+global only               0.8349±0.0122       0.8374
+concat                    0.8742±0.0051       0.8746
+average                   0.8624±0.0102       0.8635
+
+Kernel Size Analysis:
+Config                        Macro-F1
+----------------------------------------
+(2,3,4) [default]         0.8746±0.0021
+kernels_(2,3)             0.8778±0.0059
+kernels_(2,3,4,5)         0.8761±0.0082
+kernels_(3,4,5)           0.8697±0.0039
+
+Consolidated results saved to: ./outputs/all_results_consolidated.json
+
+✅ Step 4 complete. All figures in: figures/

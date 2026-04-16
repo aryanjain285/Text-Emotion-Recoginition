@@ -1,0 +1,225 @@
+{
+  "total_errors": 1910,
+  "total_samples": 3344,
+  "error_rate": 0.5711722488038278,
+  "confusion_pairs": {
+    "neutral \u2192 sadness": 72,
+    "neutral \u2192 surprise": 91,
+    "happiness \u2192 surprise": 43,
+    "happiness \u2192 love": 106,
+    "love \u2192 sadness": 21,
+    "sadness \u2192 neutral": 91,
+    "worry \u2192 neutral": 198,
+    "worry \u2192 sadness": 193,
+    "surprise \u2192 love": 24,
+    "neutral \u2192 love": 62,
+    "love \u2192 happiness": 96,
+    "surprise \u2192 neutral": 51,
+    "surprise \u2192 happiness": 51,
+    "sadness \u2192 worry": 109,
+    "love \u2192 surprise": 23,
+    "love \u2192 worry": 11,
+    "happiness \u2192 neutral": 79,
+    "neutral \u2192 happiness": 130,
+    "neutral \u2192 worry": 68,
+    "worry \u2192 surprise": 74,
+    "sadness \u2192 love": 22,
+    "sadness \u2192 surprise": 45,
+    "sadness \u2192 happiness": 39,
+    "worry \u2192 happiness": 93,
+    "surprise \u2192 worry": 24,
+    "worry \u2192 love": 34,
+    "surprise \u2192 sadness": 14,
+    "love \u2192 neutral": 30,
+    "happiness \u2192 worry": 6,
+    "happiness \u2192 sadness": 10
+  },
+  "category_counts": {
+    "short_text": 4,
+    "ambiguous": 10,
+    "other": 11,
+    "negation": 5
+  },
+  "error_examples": [
+    {
+      "text": "i work in one hour",
+      "true_label": "surprise",
+      "predicted_label": "neutral",
+      "category": "short_text"
+    },
+    {
+      "text": "that was stone cold crazy. ?",
+      "true_label": "neutral",
+      "predicted_label": "surprise",
+      "category": "ambiguous"
+    },
+    {
+      "text": "my mouth hurts. wish i could cut my head off",
+      "true_label": "sadness",
+      "predicted_label": "worry",
+      "category": "ambiguous"
+    },
+    {
+      "text": "lol clever i'm extremely jealous of the amount of followers you have i only have 24",
+      "true_label": "sadness",
+      "predicted_label": "happiness",
+      "category": "other"
+    },
+    {
+      "text": "that's the one. i wish i have a video compilation of 's thrusting",
+      "true_label": "happiness",
+      "predicted_label": "neutral",
+      "category": "other"
+    },
+    {
+      "text": "i'm still here in the office.and the sun is shining",
+      "true_label": "sadness",
+      "predicted_label": "surprise",
+      "category": "ambiguous"
+    },
+    {
+      "text": "phones about to die ttfn!",
+      "true_label": "neutral",
+      "predicted_label": "worry",
+      "category": "short_text"
+    },
+    {
+      "text": "i just love it when hot policemen come into my work",
+      "true_label": "surprise",
+      "predicted_label": "love",
+      "category": "other"
+    },
+    {
+      "text": "i just got my nails done n i already messed them up alejandra lt 3",
+      "true_label": "neutral",
+      "predicted_label": "worry",
+      "category": "other"
+    },
+    {
+      "text": "enjoying my yummylicious shrimp burrito. mmmmm",
+      "true_label": "love",
+      "predicted_label": "happiness",
+      "category": "ambiguous"
+    },
+    {
+      "text": "hey hey, ur following me ur gna relise that i tweet alot! haha more than a normal person wud but im not normal",
+      "true_label": "surprise",
+      "predicted_label": "happiness",
+      "category": "negation"
+    },
+    {
+      "text": "oh, tonight is a good night",
+      "true_label": "love",
+      "predicted_label": "happiness",
+      "category": "ambiguous"
+    },
+    {
+      "text": "about to hit the hay. who came up with that? goodnight world and all those who inhabit it",
+      "true_label": "neutral",
+      "predicted_label": "surprise",
+      "category": "other"
+    },
+    {
+      "text": "ph and i are having a macaron smackdown.except he is not aware of it.it's all being played out in my head",
+      "true_label": "worry",
+      "predicted_label": "neutral",
+      "category": "negation"
+    },
+    {
+      "text": "can't sleep. fucking morning will come to soon. have to rest! it will be a new day. a perfect day to start new changes",
+      "true_label": "worry",
+      "predicted_label": "happiness",
+      "category": "other"
+    },
+    {
+      "text": "haha, awesome! and, clearly, only trinity is awesome enough to have access to it!",
+      "true_label": "love",
+      "predicted_label": "happiness",
+      "category": "other"
+    },
+    {
+      "text": "i wish i could spend my last weekend as a high school student in burbank with everyone and not fly off to dc",
+      "true_label": "worry",
+      "predicted_label": "sadness",
+      "category": "negation"
+    },
+    {
+      "text": "airport? and you didnt show up tonight homo!",
+      "true_label": "neutral",
+      "predicted_label": "surprise",
+      "category": "ambiguous"
+    },
+    {
+      "text": "how in heckitty did i forget that one?",
+      "true_label": "neutral",
+      "predicted_label": "surprise",
+      "category": "ambiguous"
+    },
+    {
+      "text": "not to seem like some crazy paedofile typing with one hand and fiddling with my willy in the other but you the coolest ever",
+      "true_label": "worry",
+      "predicted_label": "happiness",
+      "category": "negation"
+    },
+    {
+      "text": "late news then it's off for some much needed zzzzzzz.goodnight tweets.",
+      "true_label": "neutral",
+      "predicted_label": "love",
+      "category": "other"
+    },
+    {
+      "text": "doing some test shooting later this afternoon. did i mention being in holland for an indie wine festival this week? my tongue is red.",
+      "true_label": "happiness",
+      "predicted_label": "neutral",
+      "category": "other"
+    },
+    {
+      "text": "thanks daxx you too! god bless you brother!",
+      "true_label": "worry",
+      "predicted_label": "love",
+      "category": "ambiguous"
+    },
+    {
+      "text": "hearing that my songs brighten someone's day always makes me grin.",
+      "true_label": "happiness",
+      "predicted_label": "love",
+      "category": "other"
+    },
+    {
+      "text": "lunch time! feeling really odd today, generally not great",
+      "true_label": "sadness",
+      "predicted_label": "worry",
+      "category": "negation"
+    },
+    {
+      "text": "ate all my chocolate",
+      "true_label": "sadness",
+      "predicted_label": "neutral",
+      "category": "short_text"
+    },
+    {
+      "text": "stuck in awful traffic in the way to the wedding. ceremony is supposed to start now. ughhh.",
+      "true_label": "worry",
+      "predicted_label": "sadness",
+      "category": "other"
+    },
+    {
+      "text": "another david hughes on your list? i'm hurt ftw!",
+      "true_label": "sadness",
+      "predicted_label": "worry",
+      "category": "ambiguous"
+    },
+    {
+      "text": "thanks mr. dj!",
+      "true_label": "happiness",
+      "predicted_label": "love",
+      "category": "short_text"
+    },
+    {
+      "text": "i just watched that episode again last night.",
+      "true_label": "worry",
+      "predicted_label": "neutral",
+      "category": "ambiguous"
+    }
+  ]
+}
